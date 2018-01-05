@@ -1,7 +1,10 @@
 package liang_monte_carlo;
 
 import main.Configuration;
+import main.Grid;
 import main.OutputPrinter;
+import main.Protein;
+import main.Sequence;
 import mutation.MutationManager;
 
 import java.io.IOException;
@@ -37,30 +40,35 @@ public class LiangOptimizer extends Linagabstract {
         long runningTime;
         log.initialize(runNumber);
         for (currentGenerarionNum = 0; currentGenerarionNum < config.numberOfGenerations; currentGenerarionNum++) {
-
-//            in1 =  population.chooseProtein() ;
+            Protein fakeProtein = new Protein(config.dimensions, new Sequence(
+                    config.sequence), random, Grid.getInstance((config.sequence.length() * 2) - 1,
+                                                               config.dimensions), "fack");
+//            Protein in1 =  population.chooseProtein() ;
 //            if (in1.getConformation().size() == 0)
 //                throw new RuntimeException("in1.conformation.size() == 0\n"+"energy = "+in1.getEnergy());
-//            out1 = population.getLast();
-//            mutationManager.mutate(in1, out1, 10);
+//            Protein out1 = population.get(population.size()-1);
+//            mutationManager.mutate(in1, fakeProtein, 10);
+//            population.updateLastTwo();
 
+
+//            bestProtein=population.chooseProtein();
 //
-//            bestProtein.reset();
-//            int randomPlace = new Random().nextInt(population.reference.size());
-//
-//            float temperature=population.reference.get(randomPlace).getTemperature();
-//            Protein randomProtein =population.getByRef(population.findRealPlace(randomPlace));
-//            mutationManager.mutate(randomProtein,bestProtein,10);
-//
-//            float probability = Math.min((float) Math.exp((-bestProtein.getEnergy() - randomProtein.getEnergy())
-//                                                                  /temperature), 1);
-//
-//            if(probability>=Math.random())
-//                {
-//                population.set(population.findRealPlace(randomPlace),bestProtein);
-//                population.reference.get(randomPlace).setEnergy(bestProtein.getEnergy());
-//
-//                }
+            int randomPlace = new Random().nextInt(population.reference.size());
+
+            float temperature=population.reference.get(randomPlace).getTemperature();
+            Protein randomProtein =population.getByRef(population.findRefPlace(randomPlace));
+            mutationManager.mutate(randomProtein,fakeProtein,10);
+
+
+            float probability = Math.min((float) Math.exp((-fakeProtein.getEnergy() - randomProtein.getEnergy())
+                                                                  /temperature), 1);
+
+            if(probability>=Math.random()&&fakeProtein.getConformation().size()!=0)
+                {
+                population.set(population.findRefPlace(randomPlace), fakeProtein);
+                population.reference.get(randomPlace).setEnergy(fakeProtein.getEnergy());
+
+                }
 
 
             int index1 = new Random().nextInt(population.size());
@@ -76,10 +84,11 @@ public class LiangOptimizer extends Linagabstract {
                     index2 = index1 - 1;
                 }
             }
-            index1=population.findRealPlace(index1);
-            index2=population.findRealPlace(index2);
-            if(population.exchangeProbability(index1, index2))
-                population.exchangeProtein(index1,index2);
+
+            int index1InRef=population.findRefPlace(index1);
+            int index2InRef=population.findRefPlace(index2);
+            if(population.exchangeProbability(index1InRef, index2InRef))
+                population.exchangeProtein(index1,index2,index1InRef,index2InRef);
 
 
 

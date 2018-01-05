@@ -57,7 +57,7 @@ public class LiangPopulation extends PopulationAbstract {
         }
     }
 
-    public int findRealPlace(int index) {
+    public int findRefPlace(int index) {
         int realIndex = 0;
 
         for (int i = 0; i < reference.size(); i++) {
@@ -82,14 +82,14 @@ public class LiangPopulation extends PopulationAbstract {
         reference.get(s - 2).setEnergy(get(seconedToLast).getEnergy());
     }
 
-    public void exchangeProtein(int index1, int index2) {
-        Protein P1 = getByRef(index1);
-        set(index1, getByRef(index2));
-        set(index2, P1);
-        reference.get(index1).setEnergy(get(index1).getEnergy());
-        reference.get(index1).setIndex(index2);
-        reference.get(index2).setEnergy(get(index2).getEnergy());
-        reference.get(index2).setIndex(index1);
+    public void exchangeProtein(int index1Pop,int index2Pop,int index1Ref, int index2Ref) {
+        Protein P1 = get(index1Pop);
+        set(index1Pop, get(index2Pop));
+        set(index2Pop, P1);
+        reference.get(index1Ref).setEnergy(get(index1Pop).getEnergy());
+        reference.get(index1Ref).setIndex(index2Ref);
+        reference.get(index2Ref).setEnergy(get(index2Pop).getEnergy());
+        reference.get(index2Ref).setIndex(index1Ref);
     }
 
     public boolean exchangeProbability(int index1, int index2) {
