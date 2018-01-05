@@ -44,6 +44,7 @@ public class LiangMain extends HP {
         System.out.println("Done. Time: " + runningTime
                                    + " seconds. Faild " + mutationManager.getNumOfFailures()
                                    + " out of " + mutationManager.getNumOfIterations());
+        System.out.println("finish");
     }
 
 
