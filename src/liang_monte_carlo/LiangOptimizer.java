@@ -42,71 +42,28 @@ public class LiangOptimizer extends Linagabstract {
         for (currentGenerarionNum = 0; currentGenerarionNum < config.numberOfGenerations; currentGenerarionNum++) {
             Protein fakeProtein = new Protein(config.dimensions, new Sequence(
                     config.sequence), random, Grid.getInstance((config.sequence.length() * 2) - 1,
-                                                               config.dimensions), "fack");
-//            Protein in1 =  population.chooseProtein() ;
-//            if (in1.getConformation().size() == 0)
-//                throw new RuntimeException("in1.conformation.size() == 0\n"+"energy = "+in1.getEnergy());
-//            Protein out1 = population.get(population.size()-1);
-//            mutationManager.mutate(in1, fakeProtein, 10);
-//            population.updateLastTwo();
-
-
-//            bestProtein=population.chooseProtein();
-//
+                                                               config.dimensions), "fake Protein");
             int randomPlace = new Random().nextInt(population.reference.size());
 
-            float temperature=population.reference.get(randomPlace).getTemperature();
-            Protein randomProtein =population.getByRef(population.findRefPlace(randomPlace));
-            mutationManager.mutate(randomProtein,fakeProtein,10);
-
+            float temperature = population.reference.get(randomPlace).getTemperature();
+            Protein randomProtein = population.getByRef(population.findRefPlace(randomPlace));
+            mutationManager.mutate(randomProtein, fakeProtein, 10);
 
             float probability = Math.min((float) Math.exp((-fakeProtein.getEnergy() - randomProtein.getEnergy())
-                                                                  /temperature), 1);
+                                                                  / temperature), 1);
 
-            if(probability>=Math.random()&&fakeProtein.getConformation().size()!=0)
-                {
+            if (probability >= Math.random() && fakeProtein.getConformation().size() != 0) {
                 population.set(population.findRefPlace(randomPlace), fakeProtein);
                 population.reference.get(randomPlace).setEnergy(fakeProtein.getEnergy());
-
-                }
-
-
-            int index1 = new Random().nextInt(population.size());
-            int index2;
-            if (index1 == 0)
-                index2 = 1;
-            else if (index1 == population.size - 1)
-                index2 = population.size - 2;
-            else {
-                if (Math.random() < 0.5)
-                    index2 = index1 + 1;
-                else {
-                    index2 = index1 - 1;
-                }
             }
 
-            int index1InRef=population.findRefPlace(index1);
-            int index2InRef=population.findRefPlace(index2);
-            if(population.exchangeProbability(index1InRef, index2InRef))
-                population.exchangeProtein(index1,index2,index1InRef,index2InRef);
+            int index1 = new Random().nextInt(population.size());
+            int index2 = chooseNextIndex(index1);
 
-
-
-
-//            float BoltzmannBeforeExchange = population.PopulationBoltzmann();
-//            population.exchangeProtein(index1, index2);
-//            float BoltzmannAfterExchange = population.PopulationBoltzmann();
-//            if (BoltzmannAfterExchange / BoltzmannBeforeExchange < config.crossoverRate)
-//                population.exchangeProtein(index2, index1);
-
-
-
-
-
-
-
-
-
+            int index1InRef = population.findRefPlace(index1);
+            int index2InRef = population.findRefPlace(index2);
+            if (population.exchangeProbability(index1InRef, index2InRef))
+                population.exchangeProtein(index1, index2, index1InRef, index2InRef);
 
             runningTime = (System.currentTimeMillis() - startTime);
             if (currentGenerarionNum % config.reportEvery == 0) {
@@ -116,4 +73,25 @@ public class LiangOptimizer extends Linagabstract {
         log.printRun();
         runNumber++;
     }
+
+    private int chooseNextIndex(int index1) {
+        int index2;
+        if (index1 == 0)
+            index2 = 1;
+        else if (index1 == population.size - 1)
+            index2 = population.size - 2;
+        else {
+            if (Math.random() < 0.5)
+                index2 = index1 + 1;
+            else {
+                index2 = index1 - 1;
+            }
+        }
+        return index2;
+    }
 }
+//            float BoltzmannBeforeExchange = population.PopulationBoltzmann();
+//            population.exchangeProtein(index1, index2);
+//            float BoltzmannAfterExchange = population.PopulationBoltzmann();
+//            if (BoltzmannAfterExchange / BoltzmannBeforeExchange < config.crossoverRate)
+//                population.exchangeProtein(index2, index1);
