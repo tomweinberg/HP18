@@ -25,39 +25,45 @@ public abstract class Linagabstract implements Optimizer {
 
     protected boolean isFirstInit;
 
-
     // Data for All the Run
-    /** The protein population. */
+    /**
+     * The protein population.
+     */
     protected LiangPopulation population;
 
-    /** The mutation manager. */
+    /**
+     * The mutation manager.
+     */
     protected MutationManager mutationManager;
 
-    /** The current generarion num. */
+    /**
+     * The current generarion num.
+     */
     protected int currentGenerarionNum;
 
-    /** The random number for usage in the run. */
+    /**
+     * The random number for usage in the run.
+     */
     protected Random random;
 
-    /** the output file writer. */
+    /**
+     * the output file writer.
+     */
     protected OutputPrinter fileWriter;
 
-    /** The configuration class to get User given arguments. */
+    /**
+     * The configuration class to get User given arguments.
+     */
     protected Configuration config;
 
     protected int numberOfGenerations, reportEvery;
     protected Protein bestProtein;
 
     /**
-     *
-     *
      * Instantiates a new Genetic Algorithm (GA) run.
      *
-     * @param fileWriter
-     *            the file writer to write the stored data in the run
-     * @param config
-     *            the configuration object to load user given data
-     *
+     * @param fileWriter the file writer to write the stored data in the run
+     * @param config     the configuration object to load user given data
      */
 
     public Linagabstract(OutputPrinter fileWriter, Configuration config,
@@ -75,8 +81,6 @@ public abstract class Linagabstract implements Optimizer {
                 config.sequence), random, Grid.getInstance(size,
                                                            config.dimensions), "best protain");
         gui = new RunningView("results", size, size);
-
-
     }
 
     /**
@@ -89,7 +93,6 @@ public abstract class Linagabstract implements Optimizer {
         System.out.println("Initializing run # " + runNumber);
         population = new LiangPopulation(config, random, mutationManager);
         currentGenerarionNum = 0;
-
     }
 
     /**
@@ -98,8 +101,6 @@ public abstract class Linagabstract implements Optimizer {
      * @return the fitest
      * @throws IOException
      */
-
-
 
     public abstract void execute() throws IOException;
 }

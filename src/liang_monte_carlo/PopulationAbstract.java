@@ -94,16 +94,15 @@ public abstract class PopulationAbstract extends ArrayList<Protein> {
     /**
      * Mutate.
      */
-//        public void mutate() {
-//            Protein in = chooseProtein();
-//            Protein out = getLast();
-//            mutationManger.mutate(in, out, 10);
-//            this.reference.get(size() - 1).setFitness(out.getFitness());
-//
-//            // Collections.sort(this);
-//            Collections.sort(this.reference);
-//        }
-
+    //        public void mutate() {
+    //            Protein in = chooseProtein();
+    //            Protein out = getLast();
+    //            mutationManger.mutate(in, out, 10);
+    //            this.reference.get(size() - 1).setFitness(out.getFitness());
+    //
+    //            // Collections.sort(this);
+    //            Collections.sort(this.reference);
+    //        }
 
     /**
      * Choose one of the proteins, with higher probability to the lower list
@@ -220,7 +219,7 @@ public abstract class PopulationAbstract extends ArrayList<Protein> {
         return lowestProtein;
     }
 
-   //public abstract void sort();
+    //public abstract void sort();
 }
 
 

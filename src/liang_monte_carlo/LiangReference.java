@@ -7,8 +7,8 @@ import main.Reference;
  */
 public class LiangReference implements Comparable<Object> {
 
-    private  int _index;
     private final float _temp;
+    private int _index;
     private float _energy;
 
     /**
@@ -51,7 +51,7 @@ public class LiangReference implements Comparable<Object> {
     }
 
     public void setIndex(int _index) {
-         this._index=_index;
+        this._index = _index;
     }
 
     public float getEnergy() {
@@ -63,6 +63,6 @@ public class LiangReference implements Comparable<Object> {
     }
 
     public float getTemperature() {
-        return (_index+1)*this._temp;
+        return (_index + 1) * this._temp;
     }
 }

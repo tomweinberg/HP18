@@ -13,13 +13,19 @@ import java.io.IOException;
 public class LiangPopulationLog extends Log {
     //Trajectory data
 
-    /** The best fitness. */
+    /**
+     * The best fitness.
+     */
     protected float[] bestFitness;
 
-    /** The average fitness. */
+    /**
+     * The average fitness.
+     */
     protected float[] averageFitness;
 
-    /** The worst fitness. */
+    /**
+     * The worst fitness.
+     */
     protected float[] worstFitness;
 
     protected OutputPrinter outPrinter;
@@ -30,7 +36,6 @@ public class LiangPopulationLog extends Log {
         averageFitness = new float[trajectorySize];
         worstFitness = new float[trajectorySize];
         this.outPrinter = outPrinter;
-
     }
 
     public void initialize(int runNumber) {
@@ -40,12 +45,12 @@ public class LiangPopulationLog extends Log {
             averageFitness[i] = 0;
             worstFitness[i] = 0;
         }
-
     }
 
     public void printRun() {
         outPrinter.printRun(runNumber, this);
     }
+
     /**
      * Gets the best fitness per generation array.
      *
@@ -83,14 +88,14 @@ public class LiangPopulationLog extends Log {
     }
 
     public void collectStatistics(LiangPopulation population, int currentGenerarionNum, int numberOfGenerations, Long runningTime) throws IOException {
-        this.collectStatistics(population, currentGenerarionNum, numberOfGenerations, runningTime,population.getPopulationTemperature());
-    }
-    public void collectStatistics(LiangPopulation population, int currentGenerarionNum, int numberOfGenerations, Long runningTime, float temperature) throws IOException {
-        super.collectStatistics(population.getFirst(), population.getBestEnergy(), population.getAverageEnergy(), population.getWorstEnergy(), currentGenerarionNum, numberOfGenerations, runningTime,temperature);
-        averageFitness[step-1] = population.getAverageFitness();
-        worstFitness[step-1]   = population.getLast().getFitness();
-        bestFitness[step-1]    = population.getFirst().getFitness();
+        this.collectStatistics(population, currentGenerarionNum, numberOfGenerations, runningTime, population.getPopulationTemperature());
     }
 
+    public void collectStatistics(LiangPopulation population, int currentGenerarionNum, int numberOfGenerations, Long runningTime, float temperature) throws IOException {
+        super.collectStatistics(population.getFirst(), population.getBestEnergy(), population.getAverageEnergy(), population.getWorstEnergy(), currentGenerarionNum, numberOfGenerations, runningTime, temperature);
+        averageFitness[step - 1] = population.getAverageFitness();
+        worstFitness[step - 1] = population.getLast().getFitness();
+        bestFitness[step - 1] = population.getFirst().getFitness();
+    }
 }
 

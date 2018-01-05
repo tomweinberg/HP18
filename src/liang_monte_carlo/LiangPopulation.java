@@ -66,7 +66,7 @@ public class LiangPopulation extends PopulationAbstract {
         }
         return realIndex;
     }
-    
+
     @Override
     public Protein getByRef(int index) {
         int i = reference.get(index).getIndex();
@@ -82,7 +82,7 @@ public class LiangPopulation extends PopulationAbstract {
         reference.get(s - 2).setEnergy(get(seconedToLast).getEnergy());
     }
 
-    public void exchangeProtein(int index1Pop,int index2Pop,int index1Ref, int index2Ref) {
+    public void exchangeProtein(int index1Pop, int index2Pop, int index1Ref, int index2Ref) {
         Protein P1 = get(index1Pop);
         set(index1Pop, get(index2Pop));
         set(index2Pop, P1);
