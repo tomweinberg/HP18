@@ -15,7 +15,7 @@ import java.util.Random;
 /**
  * Created by tomw on 26/12/2017
  */
-public abstract class Linagabstract implements Optimizer {
+public abstract class LiangOptimizerAbstract implements Optimizer {
 
     public static final boolean debug = true;
     protected final boolean SHOW_BEST_IN_GUI = true;
@@ -66,8 +66,8 @@ public abstract class Linagabstract implements Optimizer {
      * @param config     the configuration object to load user given data
      */
 
-    public Linagabstract(OutputPrinter fileWriter, Configuration config,
-                         MutationManager mutationManager) {
+    public LiangOptimizerAbstract(OutputPrinter fileWriter, Configuration config,
+                                  MutationManager mutationManager) {
 
         this.config = config;
         this.random = config.random;

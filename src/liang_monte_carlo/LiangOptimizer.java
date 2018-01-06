@@ -13,7 +13,7 @@ import java.util.Random;
 /**
  * Created by tomw on 26/12/2017
  */
-public class LiangOptimizer extends Linagabstract {
+public class LiangOptimizer extends LiangOptimizerAbstract {
 
     /**
      * the graph that represent's the system
@@ -43,27 +43,27 @@ public class LiangOptimizer extends Linagabstract {
             Protein fakeProtein = new Protein(config.dimensions, new Sequence(
                     config.sequence), random, Grid.getInstance((config.sequence.length() * 2) - 1,
                                                                config.dimensions), "fake Protein");
-            int randomPlace = new Random().nextInt(population.reference.size());
+            int randomRefPlace = new Random().nextInt(population.reference.size());
 
-            float temperature = population.reference.get(randomPlace).getTemperature();
-            Protein randomProtein = population.getByRef(population.findRefPlace(randomPlace));
+            float temperature = population.reference.get(randomRefPlace).getTemperature();
+            Protein randomProtein = population.getByRef(population.findRefPlace(randomRefPlace));
             mutationManager.mutate(randomProtein, fakeProtein, 10);
 
             float probability = Math.min((float) Math.exp((-fakeProtein.getEnergy() - randomProtein.getEnergy())
                                                                   / temperature), 1);
 
             if (probability >= Math.random() && fakeProtein.getConformation().size() != 0) {
-                population.set(population.findRefPlace(randomPlace), fakeProtein);
-                population.reference.get(randomPlace).setEnergy(fakeProtein.getEnergy());
+                population.set(population.reference.get(randomRefPlace).getIndex(), fakeProtein);
+                population.reference.get(randomRefPlace).setEnergy(fakeProtein.getEnergy());
             }
 
-            int index1 = new Random().nextInt(population.size());
-            int index2 = chooseNextIndex(index1);
+            int index1InPop = new Random().nextInt(population.size());
+            int index2InPop = chooseNextIndex(index1InPop);
 
-            int index1InRef = population.findRefPlace(index1);
-            int index2InRef = population.findRefPlace(index2);
+            int index1InRef = population.findRefPlace(index1InPop);
+            int index2InRef = population.findRefPlace(index2InPop);
             if (population.exchangeProbability(index1InRef, index2InRef))
-                population.exchangeProtein(index1, index2, index1InRef, index2InRef);
+                population.exchangeProtein(index1InPop, index2InPop, index1InRef, index2InRef);
 
             runningTime = (System.currentTimeMillis() - startTime);
             if (currentGenerarionNum % config.reportEvery == 0) {

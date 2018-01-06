@@ -58,13 +58,12 @@ public class LiangPopulation extends PopulationAbstract {
     }
 
     public int findRefPlace(int index) {
-        int realIndex = 0;
 
         for (int i = 0; i < reference.size(); i++) {
             if (reference.get(i).getIndex() == index)
-                realIndex = i;
+                return i;
         }
-        return realIndex;
+        return -1;
     }
 
     @Override
@@ -87,19 +86,19 @@ public class LiangPopulation extends PopulationAbstract {
         set(index1Pop, get(index2Pop));
         set(index2Pop, P1);
         reference.get(index1Ref).setEnergy(get(index1Pop).getEnergy());
-        reference.get(index1Ref).setIndex(index2Ref);
+        reference.get(index1Ref).setIndex(index2Pop);
         reference.get(index2Ref).setEnergy(get(index2Pop).getEnergy());
-        reference.get(index2Ref).setIndex(index1Ref);
+        reference.get(index2Ref).setIndex(index1Pop);
     }
 
     public boolean exchangeProbability(int index1, int index2) {
-        float e1 = reference.get(index1).getEnergy();
+        float energy1 = reference.get(index1).getEnergy();
         float t1 = 1 / reference.get(index1).getTemperature();
 
-        float e2 = reference.get(index2).getEnergy();
+        float energy2 = reference.get(index2).getEnergy();
         float t2 = 1 / reference.get(index2).getTemperature();
 
-        float probability = Math.min((float) Math.exp((e1 - e2) * (t1 - t2)), 1);
+        float probability = Math.min((float) Math.exp((energy1 - energy2) * (t1 - t2)), 1);
 
         if (probability >= Math.random())
             return true;
