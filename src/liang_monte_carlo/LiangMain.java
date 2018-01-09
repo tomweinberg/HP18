@@ -11,17 +11,14 @@ import java.io.IOException;
 import java.util.Date;
 
 /**
- * Created by tomw on 26/12/2017
+ * Created by Tom Weinberg and Jonathan Rosenberg on 26/12/2017
  */
 public class LiangMain extends HP {
 
     /**
-     * @param argv get's two parameters 1) the config.ini path (you can always
+     * @param argv The config.ini path (you can always
      *             use the one in the project out folder by run with
-     *             ..\out\config.ini as first arg 2)the seed file that will be
-     *             use for the random calculation <a
-     *             href="http://en.wikipedia.org/wiki/Random_seed">for more
-     *             information about seeding</a>
+     *             ..\out\config.ini as first arg
      * @throws IOException
      */
     public static void main(String[] argv) throws IOException {
@@ -43,10 +40,13 @@ public class LiangMain extends HP {
         System.out.println("finish");
     }
 
+
+
     private static MutationManager getMutationManager(Configuration config) {
         System.out.print("Loading Mutation Manager ...");
         MutationManager mutationManager = new MutationManager(new MutationPreDefined(config));
         System.out.println("OK!");
         return mutationManager;
     }
+
 }

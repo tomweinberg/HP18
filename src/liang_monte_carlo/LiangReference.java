@@ -3,7 +3,7 @@ package liang_monte_carlo;
 import main.Reference;
 
 /**
- * Created by tomw on 26/12/2017
+ * Created by Tom Weinberg and Jonathan Rosenberg on 26/12/2017
  */
 public class LiangReference implements Comparable<Object> {
 

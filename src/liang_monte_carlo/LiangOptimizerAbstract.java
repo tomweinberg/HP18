@@ -13,7 +13,7 @@ import java.io.IOException;
 import java.util.Random;
 
 /**
- * Created by tomw on 26/12/2017
+ * Created by Tom Weinberg and Jonathan Rosenberg on 26/12/2017
  */
 public abstract class LiangOptimizerAbstract implements Optimizer {
 
