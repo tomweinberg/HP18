@@ -52,7 +52,7 @@ public class LiangOptimizer extends LiangOptimizerAbstract {
             float probability = Math.min((float) Math.exp((-fakeProtein.getEnergy() - randomProtein.getEnergy())
                                                                   / temperature), 1);
 
-            if (probability >= Math.random() && fakeProtein.getConformation().size() != 0) {
+            if (probability >= Math.random() && mutateSucceed(fakeProtein)) {
                 population.set(population.reference.get(randomRefPlace).getIndex(), fakeProtein);
                 population.reference.get(randomRefPlace).setEnergy(fakeProtein.getEnergy());
             }
@@ -88,6 +88,10 @@ public class LiangOptimizer extends LiangOptimizerAbstract {
             }
         }
         return index2;
+    }
+
+    private boolean mutateSucceed(Protein fakeProtein) {
+        return !fakeProtein.getConformation().isEmpty();
     }
 }
 //            float BoltzmannBeforeExchange = population.PopulationBoltzmann();
