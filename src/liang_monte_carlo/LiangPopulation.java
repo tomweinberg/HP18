@@ -44,19 +44,22 @@ public class LiangPopulation extends PopulationAbstract {
         return getByRef(0);
     }
 
+    /**
+     * return the temperature of the Population
+     *
+     * @return the temperature
+     */
+
     public float getPopulationTemperature() {
         return temperature;
     }
 
-    public void switchProtein(Protein protein) {
-        for (int i = 0; i < size(); i++) {
-            if (get(i).equals(protein)) {
-                set(i, protein);
-                this.reference.get(i).setEnergy(protein.getEnergy());
-            }
-        }
-    }
-
+    /**
+     * finding the place of protein index in reference array
+     *
+     * @param index
+     * @return if find, the place in the reference array, else -1
+     */
     public int findRefPlace(int index) {
 
         for (int i = 0; i < reference.size(); i++) {
@@ -65,6 +68,13 @@ public class LiangPopulation extends PopulationAbstract {
         }
         return -1;
     }
+
+    /**
+     * return the protein from Population array
+     *
+     * @param index
+     * @return the protein in this reference
+     */
 
     @Override
     public Protein getByRef(int index) {
@@ -81,6 +91,15 @@ public class LiangPopulation extends PopulationAbstract {
         reference.get(s - 2).setEnergy(get(seconedToLast).getEnergy());
     }
 
+    /**
+     * exchange the place of two protein in Population array
+     * anb update reference
+     *
+     * @param index1Pop , index of protein 1 in Population array
+     * @param index1Ref , index of protein 1 in reference array
+     * @param index2Pop , index of protein 2 in Population array
+     * @param index2Ref , index of protein 1 in reference array
+     */
     public void exchangeProtein(int index1Pop, int index2Pop, int index1Ref, int index2Ref) {
         Protein P1 = get(index1Pop);
         set(index1Pop, get(index2Pop));
@@ -91,6 +110,13 @@ public class LiangPopulation extends PopulationAbstract {
         reference.get(index2Ref).setIndex(index1Pop);
     }
 
+    /**
+     * calculator the Probability to do exchange
+     *
+     * @param index1 , index of protein 1 in reference array
+     * @param index2 , index of protein 2 in reference array
+     * @return true if the we should do exchange
+     */
     public boolean exchangeProbability(int index1, int index2) {
         float energy1 = reference.get(index1).getEnergy();
         float t1 = 1 / reference.get(index1).getTemperature();

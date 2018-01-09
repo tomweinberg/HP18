@@ -49,10 +49,7 @@ public class LiangOptimizer extends LiangOptimizerAbstract {
             Protein randomProtein = population.getByRef(population.findRefPlace(randomRefPlace));
             mutationManager.mutate(randomProtein, fakeProtein, 10);
 
-            float probability = Math.min((float) Math.exp((-fakeProtein.getEnergy() - randomProtein.getEnergy())
-                                                                  / temperature), 1);
-
-            if (probability >= Math.random() && mutateSucceed(fakeProtein)) {
+            if (mutateProbability(fakeProtein, temperature, randomProtein) && mutateSucceed(fakeProtein)) {
                 population.set(population.reference.get(randomRefPlace).getIndex(), fakeProtein);
                 population.reference.get(randomRefPlace).setEnergy(fakeProtein.getEnergy());
             }
@@ -72,6 +69,12 @@ public class LiangOptimizer extends LiangOptimizerAbstract {
         }
         log.printRun();
         runNumber++;
+    }
+
+    private boolean mutateProbability(Protein fakeProtein, float temperature, Protein randomProtein) {
+        float probability = Math.min((float) Math.exp((-fakeProtein.getEnergy() - randomProtein.getEnergy())
+                                                              / temperature), 1);
+        return probability >= Math.random();
     }
 
     private int chooseNextIndex(int index1) {
