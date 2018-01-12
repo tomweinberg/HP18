@@ -117,6 +117,7 @@ public class LiangPopulation extends PopulationAbstract {
         reference.get(index1Ref).setIndex(index2Pop);
         reference.get(index2Ref).setEnergy(get(index2Pop).getEnergy());
         reference.get(index2Ref).setIndex(index1Pop);
+
     }
 
     /**

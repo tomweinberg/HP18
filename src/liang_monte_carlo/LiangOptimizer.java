@@ -47,11 +47,18 @@ public class LiangOptimizer extends LiangOptimizerAbstract {
 
             float temperature = population.reference.get(randomRefPlace).getTemperature();
             Protein randomProtein = population.getByRef(population.findRefPlace(randomRefPlace));
+            int indexRandomProtein= population.reference.get(population.findRefPlace(randomRefPlace)).getIndex();
+            float bestEnergy=population.getBestEnergy();
+
             mutationManager.mutate(randomProtein, fakeProtein, 10);
 
             if (mutateProbability(fakeProtein, temperature, randomProtein) && mutateSucceed(fakeProtein)) {
-                population.set(population.reference.get(randomRefPlace).getIndex(), fakeProtein);
+                population.set(indexRandomProtein, fakeProtein);
                 population.reference.get(randomRefPlace).setEnergy(fakeProtein.getEnergy());
+                if(population.getBestEnergy()>bestEnergy &&config.finalTemperature<=0.01)
+                    throw new RuntimeException("This is weird: the energy was "+population.getBestEnergy()+" but now is "+bestEnergy+
+                    " energy should not get bigger");
+
             }
 
             int index1InPop = new Random().nextInt(population.size());
@@ -100,8 +107,3 @@ public class LiangOptimizer extends LiangOptimizerAbstract {
         return !fakeProtein.getConformation().isEmpty();
     }
 }
-//            float BoltzmannBeforeExchange = population.PopulationBoltzmann();
-//            population.exchangeProtein(index1, index2);
-//            float BoltzmannAfterExchange = population.PopulationBoltzmann();
-//            if (BoltzmannAfterExchange / BoltzmannBeforeExchange < config.crossoverRate)
-//                population.exchangeProtein(index2, index1);
