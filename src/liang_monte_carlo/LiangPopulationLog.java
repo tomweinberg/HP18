@@ -92,7 +92,8 @@ public class LiangPopulationLog extends Log {
     }
 
     public void collectStatistics(LiangPopulation population, int currentGenerarionNum, int numberOfGenerations, Long runningTime, float temperature) throws IOException {
-        super.collectStatistics(population.getFirst(), population.getBestEnergy(), population.getAverageEnergy(), population.getWorstEnergy(), currentGenerarionNum, numberOfGenerations, runningTime, temperature);
+        super.collectStatistics(population.getProteinOfBestEnergy(), population.getBestEnergy(), population.getAverageEnergy(), population
+                .getWorstEnergy(), currentGenerarionNum, numberOfGenerations, runningTime, temperature);
         averageFitness[step - 1] = population.getAverageFitness();
         worstFitness[step - 1] = population.getLast().getFitness();
         bestFitness[step - 1] = population.getFirst().getFitness();

@@ -69,6 +69,15 @@ public class LiangPopulation extends PopulationAbstract {
         return -1;
     }
 
+    public Protein getProteinOfBestEnergy() {
+        float bestEnergy = getBestEnergy();
+        for (int i = 0; i < size(); i++) {
+            if (get(i).getEnergy() == bestEnergy)
+                return get(i);
+        }
+        return null;
+    }
+
     /**
      * return the protein from Population array
      *

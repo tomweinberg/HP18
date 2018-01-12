@@ -72,7 +72,10 @@ public class LiangOptimizer extends LiangOptimizerAbstract {
     }
 
     private boolean mutateProbability(Protein fakeProtein, float temperature, Protein randomProtein) {
-        float probability = Math.min((float) Math.exp((-fakeProtein.getEnergy() - randomProtein.getEnergy())
+        float fakeProteinEnergy = fakeProtein.getEnergy();
+        float randomProteinEnergy = randomProtein.getEnergy();
+
+        float probability = Math.min((float) Math.exp((-(fakeProteinEnergy - randomProteinEnergy))
                                                               / temperature), 1);
         return probability >= Math.random();
     }

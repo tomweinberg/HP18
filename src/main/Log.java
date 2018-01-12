@@ -145,7 +145,7 @@ public class Log {
 				                                                 float averageEnergy, float worstEnergy, 
 				                                                 int currentGenerarionNum, int numberOfGenerations, Long runningTime, float temperature) throws IOException{
 			if (protein.getEnergy() != bestEnergy) 
-//			Tom	throw new RuntimeException("This is weird: "+protein.getEnergy()+" "+bestEnergy);
+				throw new RuntimeException("This is weird: "+protein.getEnergy()+" "+bestEnergy);
 			
 			bestEnergies[step]      = bestEnergy;
 			averageEnergies[step]   = averageEnergy;
