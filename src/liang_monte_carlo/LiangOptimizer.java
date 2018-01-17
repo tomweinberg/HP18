@@ -39,11 +39,11 @@ public class LiangOptimizer extends LiangOptimizerAbstract {
         long startTime = System.currentTimeMillis();
         long runningTime;
         log.initialize(runNumber);
-        for (currentGenerarionNum = 0; currentGenerarionNum < config.numberOfGenerations; currentGenerarionNum++) {
-            Protein fakeProtein = new Protein(config.dimensions, new Sequence(
-                    config.sequence), random, Grid.getInstance((config.sequence.length() * 2) - 1,
-                                                               config.dimensions), "fake Protein");
-            int randomRefPlace = new Random().nextInt(population.reference.size());
+        Protein fakeProtein = new Protein(config.dimensions, new Sequence(
+                config.sequence), random, Grid.getInstance((config.sequence.length() * 2) - 1,
+                config.dimensions), "fake Protein");        for (currentGenerarionNum = 0; currentGenerarionNum < config.numberOfGenerations; currentGenerarionNum++) {
+
+            int randomRefPlace = random.nextInt(population.reference.size());  
 
             float temperature = population.reference.get(randomRefPlace).getTemperature();
             Protein randomProtein = population.getByRef(population.findRefPlace(randomRefPlace));
@@ -53,14 +53,14 @@ public class LiangOptimizer extends LiangOptimizerAbstract {
             mutationManager.mutate(randomProtein, fakeProtein, 10);
 
             if (mutateProbability(fakeProtein, temperature, randomProtein) && mutateSucceed(fakeProtein)) {
-                population.set(indexRandomProtein, fakeProtein);
+                population.get(indexRandomProtein).setConformation(fakeProtein.getConformation());
                 population.reference.get(randomRefPlace).setEnergy(fakeProtein.getEnergy());
                 if (population.getBestEnergy() > bestEnergy && config.finalTemperature <= 0.01)
                     throw new RuntimeException("This is weird: the energy was " + population.getBestEnergy() + " but now is " + bestEnergy +
                                                        " energy should not get bigger");
             }
 
-            int index1InPop = new Random().nextInt(population.size());
+            int index1InPop = random.nextInt(population.size());
             int index2InPop = chooseNextIndex(index1InPop);
 
             int index1InRef = population.findRefPlace(index1InPop);
