@@ -8,7 +8,6 @@ import main.Sequence;
 import mutation.MutationManager;
 
 import java.io.IOException;
-import java.util.Random;
 
 /**
  * Created by Tom Weinberg and Jonathan Rosenberg on 26/12/2017
@@ -41,9 +40,9 @@ public class LiangOptimizer extends LiangOptimizerAbstract {
         log.initialize(runNumber);
         Protein fakeProtein = new Protein(config.dimensions, new Sequence(
                 config.sequence), random, Grid.getInstance((config.sequence.length() * 2) - 1,
-                config.dimensions), "fake Protein");        for (currentGenerarionNum = 0; currentGenerarionNum < config.numberOfGenerations; currentGenerarionNum++) {
-
-            int randomRefPlace = random.nextInt(population.reference.size());  
+                                                           config.dimensions), "fake Protein");
+        for (currentGenerarionNum = 0; currentGenerarionNum < config.numberOfGenerations; currentGenerarionNum++) {
+            int randomRefPlace = random.nextInt(population.reference.size());
 
             float temperature = population.reference.get(randomRefPlace).getTemperature();
             Protein randomProtein = population.getByRef(population.findRefPlace(randomRefPlace));
