@@ -139,22 +139,4 @@ public class LiangPopulation extends PopulationAbstract {
             return true;
         return false;
     }
-
-    public float PopulationBoltzmann() {
-        float BoltzmannP = 0;
-        for (int i = 0; i < reference.size(); i++) {
-            BoltzmannP = BoltzmannP + calculateBoltzmann(reference.get(i));
-        }
-        return BoltzmannP;
-    }
-
-    private float calculateBoltzmann(LiangReference protein) {
-        float energy = protein.getEnergy();
-        float temperature = protein.getTemperature();
-        float probability = (float) Math.exp(-energy / temperature);
-        if (Float.isNaN(probability) || Float.isInfinite(probability)) {
-            throw new RuntimeException("Boltzmann probability is " + probability + " " + energy + " " + temperature);
-        }
-        return probability;
-    }
 }

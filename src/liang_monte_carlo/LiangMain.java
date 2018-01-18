@@ -40,13 +40,10 @@ public class LiangMain extends HP {
         System.out.println("finish");
     }
 
-
-
     private static MutationManager getMutationManager(Configuration config) {
         System.out.print("Loading Mutation Manager ...");
         MutationManager mutationManager = new MutationManager(new MutationPreDefined(config));
         System.out.println("OK!");
         return mutationManager;
     }
-
 }
